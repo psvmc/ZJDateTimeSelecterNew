@@ -1,0 +1,50 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        />
+
+    <Button
+        android:id="@+id/chooseDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/holo_orange_dark"
+        android:text="时间都去哪啦"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        />
+
+
+    <TextView
+        android:id="@+id/datetextView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        />
+
+    <Button
+        android:id="@+id/chooseDate"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/holo_orange_dark"
+        android:text="选择日期"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        />
+
+</LinearLayout>
