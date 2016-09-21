@@ -1,7 +1,9 @@
 package cn.psvmc.zjdatetimeselecter;
 
+import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,14 +14,22 @@ import java.util.List;
 
 
 public class ZJDateTimeSelector {
+    public final static int showDateAndTime = 0;
+    public final static int showDate = 1;
+    public final static int showTime = 2;
+    public final static int showYearAndMonth = 3;
+
     String TAG = "ZJDateTimeSelector";
 
     private View outerView;
     ZJWheelView yearView, monthView, dayView;
     ZJWheelView hourView, minuteView;
+    TextView year_month_delimiter;
+    TextView month_day_delimiter;
     TextView hour_minute_delimiter;
 
-    private boolean hasSelectTime;
+    //显示类型
+    private int showType = 0;
     private static int START_YEAR = 1990, END_YEAR = 2100;
     private static int START_MONTH = 1, END_MONTH = 12;
     private static int START_DAY = 1, END_DAY = 31;
@@ -29,6 +39,8 @@ public class ZJDateTimeSelector {
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat yearAndMonthFormat = new SimpleDateFormat("yyyy-MM");
 
     // 添加大小月月份并将其转换为list,方便之后的判断
     String[] months_big = {"1", "3", "5", "7", "8", "10", "12"};
@@ -56,6 +68,7 @@ public class ZJDateTimeSelector {
     private Date beginDate;
     private Date endDate;
 
+
     public View getView() {
         return outerView;
     }
@@ -72,18 +85,40 @@ public class ZJDateTimeSelector {
     }
 
 
-    public ZJDateTimeSelector(View view) {
+    public ZJDateTimeSelector(Context context) {
         super();
-        this.outerView = view;
-        hasSelectTime = true;
-        setView(view);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        final View timepickerview = inflater.inflate(cn.psvmc.zjdatetimeselecter.R.layout.datetimeselector, null);
+        this.outerView = timepickerview;
+        showType = ZJDateTimeSelector.showDateAndTime;
+        setView(timepickerview);
     }
 
-    public ZJDateTimeSelector(View view, boolean hasSelectTime) {
+    public ZJDateTimeSelector(Context context, boolean hasSelectTime) {
         super();
-        this.outerView = view;
-        this.hasSelectTime = hasSelectTime;
-        setView(view);
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        final View timepickerview = inflater.inflate(cn.psvmc.zjdatetimeselecter.R.layout.datetimeselector, null);
+        this.outerView = timepickerview;
+        if (hasSelectTime) {
+            showType = ZJDateTimeSelector.showDateAndTime;
+        } else {
+            showType = ZJDateTimeSelector.showDate;
+        }
+
+        setView(timepickerview);
+    }
+
+    public ZJDateTimeSelector(Context context, int selector_type) {
+        super();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        final View timepickerview = inflater.inflate(cn.psvmc.zjdatetimeselecter.R.layout.datetimeselector, null);
+        this.outerView = timepickerview;
+        showType = selector_type;
+
+        setView(timepickerview);
     }
 
     /**
@@ -138,8 +173,11 @@ public class ZJDateTimeSelector {
             }
         }
         yearView = (ZJWheelView) outerView.findViewById(R.id.wheel_view_year);
+        year_month_delimiter = (TextView) outerView.findViewById(R.id.year_month_delimiter);
         monthView = (ZJWheelView) outerView.findViewById(R.id.wheel_view_month);
+        month_day_delimiter = (TextView) outerView.findViewById(R.id.month_day_delimiter);
         dayView = (ZJWheelView) outerView.findViewById(R.id.wheel_view_day);
+
         hourView = (ZJWheelView) outerView.findViewById(R.id.wheel_view_hour);
         minuteView = (ZJWheelView) outerView.findViewById(R.id.wheel_view_minute);
         hour_minute_delimiter = (TextView) outerView.findViewById(R.id.hour_minute_delimiter);
@@ -189,7 +227,20 @@ public class ZJDateTimeSelector {
             }
         });
 
-        if(!hasSelectTime){
+        if (showType == ZJDateTimeSelector.showDate) {
+            hourView.setVisibility(View.GONE);
+            minuteView.setVisibility(View.GONE);
+            hour_minute_delimiter.setVisibility(View.GONE);
+        } else if (showType == ZJDateTimeSelector.showTime) {
+            yearView.setVisibility(View.GONE);
+            year_month_delimiter.setVisibility(View.GONE);
+            monthView.setVisibility(View.GONE);
+            month_day_delimiter.setVisibility(View.GONE);
+            dayView.setVisibility(View.GONE);
+        } else if (showType == ZJDateTimeSelector.showYearAndMonth) {
+            month_day_delimiter.setVisibility(View.GONE);
+            dayView.setVisibility(View.GONE);
+
             hourView.setVisibility(View.GONE);
             minuteView.setVisibility(View.GONE);
             hour_minute_delimiter.setVisibility(View.GONE);
@@ -204,10 +255,14 @@ public class ZJDateTimeSelector {
     public String getTime() {
         Date date = getDateTime();
         String dateStr = "";
-        if (!hasSelectTime) {
-            dateStr = dateFormat.format(date);
-        } else {
+        if (showType == ZJDateTimeSelector.showDateAndTime) {
             dateStr = dateTimeFormat.format(date);
+        } else if (showType == ZJDateTimeSelector.showDate) {
+            dateStr = dateFormat.format(date);
+        }else if (showType == ZJDateTimeSelector.showTime) {
+            dateStr = timeFormat.format(date);
+        } else if (showType == ZJDateTimeSelector.showYearAndMonth) {
+            dateStr = yearAndMonthFormat.format(date);
         }
         return dateStr;
     }
@@ -268,7 +323,7 @@ public class ZJDateTimeSelector {
         Date date = getDateTime();
         if (date.after(endDate)) {
             date = endDate;
-        }else if(date.before(beginDate)){
+        } else if (date.before(beginDate)) {
             date = beginDate;
         }
 
@@ -277,13 +332,13 @@ public class ZJDateTimeSelector {
         final int dayNew = ZJDateUtils.getDayByDate(date);
         final int hourNew = ZJDateUtils.getHourByDate(date);
         final int minuteNew = ZJDateUtils.getMinuteByDate(date);
-        new Handler().postDelayed(new Runnable(){
+        new Handler().postDelayed(new Runnable() {
             public void run() {
-                yearView.setSelectValue(""+yearNew, true);
-                monthView.setSelectValue(""+monthNew, true);
-                dayView.setSelectValue(""+dayNew, true);
-                hourView.setSelectValue(""+hourNew, true);
-                minuteView.setSelectValue(""+minuteNew, true);
+                yearView.setSelectValue("" + yearNew, true);
+                monthView.setSelectValue("" + monthNew, true);
+                dayView.setSelectValue("" + dayNew, true);
+                hourView.setSelectValue("" + hourNew, true);
+                minuteView.setSelectValue("" + minuteNew, true);
             }
         }, 300);
 

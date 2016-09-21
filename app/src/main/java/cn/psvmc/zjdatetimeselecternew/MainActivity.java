@@ -51,12 +51,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void choseDateTime(final TextView txtView) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
 
-        final View timepickerview = inflater.inflate(cn.psvmc.zjdatetimeselecter.R.layout.datetimeselector, null);
-        final ZJDateTimeSelector dateTimeSelector = new ZJDateTimeSelector(timepickerview, true);
+        final ZJDateTimeSelector dateTimeSelector = new ZJDateTimeSelector(this, true);
         Date beginDate = ZJDateUtils.getDate(2014, 5, 1, 0, 0);
-        Date endDate = ZJDateUtils.getDate(2016, 6, 7, 1, 0);
+        Date endDate = ZJDateUtils.getDate(2036, 6, 7, 1, 0);
         dateTimeSelector.setBeginDate(beginDate);
         dateTimeSelector.setEndDate(endDate);
         String time = txtView.getText().toString();
@@ -74,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle("预约时间")
-                .setView(timepickerview)
+                .setView(dateTimeSelector.getView())
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -92,12 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void choseDate(final TextView txtView) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
 
-        final View timepickerview = inflater.inflate(cn.psvmc.zjdatetimeselecter.R.layout.datetimeselector, null);
-        final ZJDateTimeSelector dateTimeSelector = new ZJDateTimeSelector(timepickerview, false);
+        final ZJDateTimeSelector dateTimeSelector = new ZJDateTimeSelector(this, ZJDateTimeSelector.showYearAndMonth);
         Date beginDate = ZJDateUtils.getDate(2014, 5, 1, 0, 0);
-        Date endDate = ZJDateUtils.getDate(2016, 6, 7, 1, 0);
+        Date endDate = ZJDateUtils.getDate(2036, 6, 7, 1, 0);
         dateTimeSelector.setBeginDate(beginDate);
         dateTimeSelector.setEndDate(endDate);
         String time = txtView.getText().toString();
@@ -115,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle("预约时间")
-                .setView(timepickerview)
+                .setView(dateTimeSelector.getView())
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
