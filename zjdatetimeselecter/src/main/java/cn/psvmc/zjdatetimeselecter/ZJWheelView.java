@@ -345,8 +345,8 @@ public class ZJWheelView extends ScrollView {
     /**
      * 设置选中项的索引
      *
-     * @param position
-     * @param animation
+     * @param position 索引
+     * @param animation 是否动画
      */
     private void setSelectIndexFromNewList(int position, boolean animation) {
         final int p = position;
@@ -372,8 +372,8 @@ public class ZJWheelView extends ScrollView {
     /**
      * 设置选中项的索引
      *
-     * @param position
-     * @param animation
+     * @param position 索引
+     * @param animation 是否动画
      */
     public void setSelectIndex(int position, boolean animation) {
         position += offset;
@@ -384,8 +384,8 @@ public class ZJWheelView extends ScrollView {
     /**
      * 设置选中的值
      *
-     * @param value
-     * @param animation
+     * @param value 选中的值
+     * @param animation 是否有动画
      */
     public void setSelectValue(String value, boolean animation) {
         int position = getIndexFromValue(value);
@@ -398,8 +398,8 @@ public class ZJWheelView extends ScrollView {
     /**
      * 设置选中的文本
      *
-     * @param text
-     * @param animation
+     * @param text 选中的文本
+     * @param animation 是否有动画
      */
     public void setSelectText(String text, boolean animation) {
         int position = getIndexFromText(text);

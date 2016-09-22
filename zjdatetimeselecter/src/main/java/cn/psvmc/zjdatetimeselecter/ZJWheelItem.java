@@ -17,7 +17,7 @@ public class ZJWheelItem {
     /**
      * 根据数组获取List
      * @param arr 数组
-     * @return List<ZJWheelItem>
+     * @return 数组
      */
     public static List<ZJWheelItem> listFromStringArray(String[] arr){
         List<ZJWheelItem> list = new ArrayList<>();
@@ -31,7 +31,7 @@ public class ZJWheelItem {
      * 根据数字获取List
      * @param minNum 最小值
      * @param maxNum 最大值
-     * @return  List<ZJWheelItem>
+     * @return  数组
      */
     public static List<ZJWheelItem> listFromNum(int minNum, int maxNum){
         List<ZJWheelItem> list = new ArrayList<>();
