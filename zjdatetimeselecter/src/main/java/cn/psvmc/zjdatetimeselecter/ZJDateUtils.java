@@ -30,8 +30,8 @@ public class ZJDateUtils {
     /**
      * 获取年
      *
-     * @param date
-     * @return
+     * @param date 时间
+     * @return int
      */
     public static int getYearByDate(Date date) {
         calendar.setTime(date);
@@ -41,8 +41,8 @@ public class ZJDateUtils {
     /**
      * 获取月
      *
-     * @param date
-     * @return
+     * @param date 时间
+     * @return int
      */
     public static int getMonthByDate(Date date) {
         calendar.setTime(date);
@@ -52,8 +52,8 @@ public class ZJDateUtils {
     /**
      * 获取日
      *
-     * @param date
-     * @return
+     * @param date 时间
+     * @return int
      */
     public static int getDayByDate(Date date) {
         calendar.setTime(date);
@@ -63,8 +63,8 @@ public class ZJDateUtils {
     /**
      * 获取时
      *
-     * @param date
-     * @return
+     * @param date 时间
+     * @return int
      */
     public static int getHourByDate(Date date) {
         calendar.setTime(date);
@@ -74,8 +74,8 @@ public class ZJDateUtils {
     /**
      * 获取分
      *
-     * @param date
-     * @return
+     * @param date 时间
+     * @return int
      */
     public static int getMinuteByDate(Date date) {
         calendar.setTime(date);

@@ -122,7 +122,8 @@ public class ZJDateTimeSelector {
     }
 
     /**
-     * @Description: 弹出日期时间选择器
+     * 初始化时间
+     * @param selectDate 时间
      */
     public void initDateTimePicker(Date selectDate) {
         if (selectDate.before(beginDate)) {
@@ -250,7 +251,7 @@ public class ZJDateTimeSelector {
     /**
      * 获取日期字符串
      *
-     * @return
+     * @return 时间字符串
      */
     public String getTime() {
         Date date = getDateTime();
@@ -270,7 +271,7 @@ public class ZJDateTimeSelector {
     /**
      * 获取日期
      *
-     * @return
+     * @return 时间
      */
     public Date getDateTime() {
         int year = Integer.valueOf(yearView.getSeletedItem().value);
