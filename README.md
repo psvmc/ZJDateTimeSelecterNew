@@ -9,7 +9,7 @@
 ## 引用
 
 ```
-compile 'cn.psvmc:ZJDateTimeSelecterNew:1.1.2'
+compile 'cn.psvmc:ZJDateTimeSelecterNew:1.1.3'
 ```
 
 ## 代码
